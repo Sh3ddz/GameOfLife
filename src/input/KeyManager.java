@@ -1,15 +1,10 @@
 package input;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
+import java.awt.event.*;
 
 import javax.swing.SwingUtilities;
 
-public class KeyManager implements KeyListener, MouseListener, MouseMotionListener
+public class KeyManager implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener
 {
 	private boolean[] keys;
 	public boolean up, down, left, right, space, enter, esc, back, shift, upArrow, downArrow, leftArrow, rightArrow, debugMode, leftClick, rightClick, middleClick, mouseWheelUp, mouseWheelDown, dragging;

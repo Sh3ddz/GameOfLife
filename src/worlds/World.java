@@ -2,6 +2,7 @@ package worlds;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import main.Handler;
 
@@ -10,10 +11,12 @@ public class World
 	private Handler handler;
 	private boolean running = false;
 	public boolean gridView = true;
-
 	private int width, height;
+
 	private int[][] grid;
-	public final int CELL_SIZE = 10;
+	private ArrayList<int[][]> previousGens;
+
+	public int CELL_SIZE = 5;
 
 	public World(Handler handler)
 	{
@@ -25,6 +28,7 @@ public class World
 	{
 		this.width = handler.getWidth()/CELL_SIZE;
 		this.height = handler.getHeight()/CELL_SIZE;
+
 		this.grid = new int[width][height];
 		for(int y = 0; y < grid[0].length; y++)
 		{
@@ -33,10 +37,14 @@ public class World
 				grid[x][y] = handler.randomWithRange(0,1);
 			}
 		}
+
+		this.previousGens = new ArrayList<int[][]>();
 	}
 
 	public void randomGrid()
 	{
+		this.previousGens.clear();
+
 		for(int y = 0; y < grid[0].length; y++)
 		{
 			for(int x = 0; x < grid.length; x++)
@@ -48,6 +56,7 @@ public class World
 
 	public void clearGrid()
 	{
+		this.previousGens.clear();
 		this.grid = new int[width][height];
 	}
 
@@ -65,8 +74,13 @@ public class World
 				grid[gridX][gridY] = 0;
 	}
 
-	private void nextGeneration()
+	public void nextGeneration()
 	{
+		this.previousGens.add(this.grid);
+
+		if(previousGens.size() > 500) //so the list doesn't get too big
+			previousGens.remove(0);
+
 		int[][] nextGen = new int[width][height];
 
 		for(int y = 0; y < grid[0].length; y++)
@@ -105,6 +119,15 @@ public class World
 			}
 		}
 		this.grid = nextGen; //setting the grid to the next generation
+	}
+
+	public void previousGeneration()
+	{
+		if(this.previousGens.size() >= 1)
+		{
+			this.grid = this.previousGens.get(previousGens.size() - 1);
+			this.previousGens.remove(previousGens.size() - 1);
+		}
 	}
 
 	public void setRunning(boolean running)

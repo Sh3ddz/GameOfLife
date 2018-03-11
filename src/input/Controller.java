@@ -56,6 +56,28 @@ public class Controller
 				handler.getWorld().setRunning(!handler.getWorld().getRunning());
 				handler.getKeyManager().space = false;
 			}
+			if(handler.getKeyManager().rightArrow && !handler.getWorld().getRunning())//goes to the next generation
+			{
+				handler.getWorld().nextGeneration();
+				handler.getKeyManager().rightArrow = false;
+			}
+			if(handler.getKeyManager().leftArrow && !handler.getWorld().getRunning())//goes to the previous generation
+			{
+				handler.getWorld().previousGeneration();
+				handler.getKeyManager().leftArrow = false;
+			}
+			//zooming
+			if(handler.getKeyManager().mouseWheelUp)//zoom in
+			{
+				handler.getWorld().CELL_SIZE++;
+				handler.getKeyManager().mouseWheelUp = false;
+			}
+			if(handler.getKeyManager().mouseWheelDown)//zoom out
+			{
+				handler.getWorld().CELL_SIZE--;
+				handler.getKeyManager().mouseWheelDown = false;
+			}
+
 
 			if(handler.getKeyManager().esc) //toggles if the world is running or not
 			{
@@ -85,12 +107,6 @@ public class Controller
 			if(handler.getKeyManager().down && !handler.getKeyManager().up) handler.getCamera().move(0, 5);
 			if(handler.getKeyManager().left && !handler.getKeyManager().right) handler.getCamera().move(-5, 0);
 			if(handler.getKeyManager().right && !handler.getKeyManager().left) handler.getCamera().move(5, 0);
-
-			//ARROW KEYS
-			if(handler.getKeyManager().upArrow && !handler.getKeyManager().downArrow) handler.getCamera().move(0, -1);
-			if(handler.getKeyManager().downArrow && !handler.getKeyManager().upArrow) handler.getCamera().move(0, 1);
-			if(handler.getKeyManager().leftArrow && !handler.getKeyManager().rightArrow) handler.getCamera().move(-1, 0);
-			if(handler.getKeyManager().rightArrow && !handler.getKeyManager().leftArrow) handler.getCamera().move(1, 0);
 		}
 	}
 

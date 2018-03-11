@@ -64,6 +64,7 @@ public class Application implements Runnable
     	display.getFrame().addKeyListener(keyManager);
     	display.getFrame().addMouseListener(keyManager);
     	display.getFrame().addMouseMotionListener(keyManager);
+    	display.getFrame().addMouseWheelListener(keyManager);
     	display.getCanvas().addMouseListener(keyManager);
     	display.getCanvas().addMouseMotionListener(keyManager);
     	//handler
